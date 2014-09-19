@@ -1,3 +1,23 @@
-template:
-  lookup:
-    master: template-master
+openstack:
+  mysql:
+    nova:
+      username: nova
+      password: nova_pass
+      service: nova-api
+    horizon:
+      username: horizon
+      password: horizon_pass
+    keystone:
+      username: keystone
+      password: keystone_pass
+      service: keystone
+    cinder:
+      username: cinder
+      password: cinder_pass
+    glance:
+      username: glance
+      password: glance_pass
+      service: glance
+    neutron:
+      username: neutron
+      password: neutron_pass
