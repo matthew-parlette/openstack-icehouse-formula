@@ -15,7 +15,7 @@ mysql-conf-file:
     - name: /etc/mysql/my.cnf
     - require:
       - pkg: mysql-server
-  ini_manage:
+  ini:
     - options_present
     - name: /etc/mysql/my.cnf
     - require:
