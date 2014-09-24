@@ -6,6 +6,8 @@ mysql-server:
     - watch:
       - pkg: mysql-server
       - ini: mysql-conf-file
+    - require:
+      - pkg: mysql-server
 
 mysql-conf-file:
   file.managed:
