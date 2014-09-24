@@ -11,13 +11,15 @@ use section as DEFAULT_IMPLICIT if your ini file does not have any section
 for example /etc/sysctl.conf
 '''
 
+__virtualname__ = 'ini'
 
 def __virtual__():
     '''
     Only load if the mysql module is available
     '''
-    return 'ini' if 'ini.set_option' in __salt__ else False
-
+    # This line was causing an error, so I changed it to just return True
+    # return 'ini' if 'ini.set_option' in __salt__ else False
+    return __virtualname__ if 'ini.set_option' in __salt__ else False
 
 def options_present(name, sections=None):
     '''
