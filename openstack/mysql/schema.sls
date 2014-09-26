@@ -13,7 +13,7 @@
       - mysql_database: {{ service }}-db
   mysql_grants.present:
     - grant: all
-    - database: {{ service }}
+    - database: {{ service }}.*
     - user: {{ options['username'] }}
     - host: {{ server }}
     - password: {{ options['password'] }}
