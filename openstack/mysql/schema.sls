@@ -1,6 +1,8 @@
-{% for service in salt['pillar.get']('openstack:mysql') %}
+python-mysqldb:
+  pkg.installed
+
+{% for service,options in salt['pillar.get']('openstack:mysql').items() %}
 {{ service }}-db:
   mysql_database.present:
-    name: {{ service }}
-    require:
-      service: openstack.mysql
+    - name: {{ service }}
+{% endfor %}
