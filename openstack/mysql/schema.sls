@@ -18,6 +18,6 @@
     - host: {{ server }}
     - password: {{ options['password'] }}
     - require:
-      - mysql_user: openstack.mysql.{{ server }}-{{ service }}-account
+      - mysql_user: {{ server }}-{{ service }}-account
 {% endfor %}
 {% endfor %}
