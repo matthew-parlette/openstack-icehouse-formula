@@ -1,4 +1,68 @@
 openstack:
+  controller:
+    - os-controller
+  token:
+    admin: admin_token
+  keystone:
+    endpoint: "http://{{ pillar['openstack']['controller'][0] }}:35357/v2.0"
+    roles:
+      - admin
+      - Member
+    services:
+      keystone:
+        service_type: identity
+        endpoint:
+          adminurl: "http://{{ grains['id'] }}:35357/v2.0"
+          internalurl: "http://{{ grains['id'] }}:5000/v2.0"
+          publicurl: "http://{{ grains['id'] }}:5000/v2.0"
+        description: "identity service"
+      glance:
+        service_type: image
+        endpoint:
+          adminurl: "http://{{ grains['id'] }}:9292"
+          internalurl: "http://{{ grains['id'] }}:9292"
+          publicurl: "http://{{ grains['id'] }}:9292"
+        description: "image service"
+      nova:
+        service_type: compute
+        endpoint:
+          adminurl: "http://{{ grains['id'] }}:8774/v2/%(tenant_id)s"
+          internalurl: "http://{{ grains['id'] }}:8774/v2/%(tenant_id)s"
+          publicurl: "http://{{ grains['id'] }}:8774/v2/%(tenant_id)s"
+        description: "compute service"
+      neutron:
+        service_type: network
+        endpoint:
+          adminurl: "http://{{ grains['id'] }}:9696"
+          internalurl: "http://{{ grains['id'] }}:9696"
+          publicurl: "http://{{ grains['id'] }}:9696"
+        description: "network service"
+    tenants:
+      admin:
+        users:
+          admin:
+            password: admin_pass
+            roles:
+              - admin
+              - "_member_"
+            email: matthew.parlette@gmail.com
+      service:
+        users:
+          glance:
+            password: glance_pass
+            roles:
+              - admin
+            email: matthew.parlette@gmail.com
+          nova:
+            password: nova_pass
+            roles:
+              - admin
+            email: matthew.parlette@gmail.com
+          neutron:
+            password: neutron_pass
+            roles:
+              - admin
+            email: matthew.parlette@gmail.com
   mysql:
     nova:
       username: nova
