@@ -1,7 +1,6 @@
 keystone:
-  pkg.latest:
-    - require:
-      - mysql_grants: {{ grains['id'] }}-keystone-account
+  pkg:
+    - latest
   service.running:
     - watch:
       - pkg: keystone
