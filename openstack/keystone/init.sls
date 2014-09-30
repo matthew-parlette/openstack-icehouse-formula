@@ -15,12 +15,12 @@ keystone:
   ini.options_present:
     - name: /etc/keystone/keystone.conf
     - sections:
-      DEFAULT:
-        - admin_token: {{ salt['pillar.get']('openstack:token:admin') }}
-      sql:
-        {% set db = pillar['openstack']['mysql']['keystone'] %}
-        {% set controller = pillar['openstack']['controller'][0] %}
-        - connection: mysql://{{ db['username'] }}:{{ db['password'] }}@{{ controller }}/keystone
+        DEFAULT:
+          admin_token: {{ salt['pillar.get']('openstack:token:admin') }}
+        database:
+          {% set db = pillar['openstack']['mysql']['keystone'] %}
+          {% set controller = pillar['openstack']['controller'][0] %}
+          connection: mysql://{{ db['username'] }}:{{ db['password'] }}@{{ controller }}/keystone
     - require:
       - file: keystone
 
