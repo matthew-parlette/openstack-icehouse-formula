@@ -11,6 +11,10 @@ use section as DEFAULT_IMPLICIT if your ini file does not have any section
 for example /etc/sysctl.conf
 '''
 
+import logging
+
+log = logging.getLogger(__name__)
+
 __virtualname__ = 'ini'
 
 def __virtual__():
@@ -48,13 +52,19 @@ def options_present(name, sections=None):
                           'given options under their respective '
                           'sections').format(name)
         return ret
+    log.debug("sections: %s" % str(sections))
     for section in sections or {}:
+        log.debug("Processing section %s from sls" % str(section))
         for key in sections[section]:
+            log.debug("Retrieving value for %s in section %s" % (str(key),str(section)))
             current_value = __salt__['ini.get_option'](name,
                                                        section,
                                                        key)
+            log.debug("Value retrieved as %s" % str(current_value))
             if current_value == sections[section][key]:
+                log.debug("Current value of %s:%s is in the correct state" % (str(section),str(current_value))
                 continue
+            log.debug("Setting %s to %s" % (str(key),str(sections[section][key])))
             ret['changes'] = __salt__['ini.set_option'](name,
                                                         sections)
             if 'error' in ret['changes']:
