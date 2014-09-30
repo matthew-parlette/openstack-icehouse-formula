@@ -17,14 +17,13 @@ mysql-conf-file:
     - name: /etc/mysql/my.cnf
     - require:
       - pkg: mysql-server
-  ini:
-    - options_present
+  ini.options_present:
     - name: /etc/mysql/my.cnf
     - require:
       - file: mysql-conf-file
     - sections:
-      mysqld:
-        bind-address: 0.0.0.0
-        character-set-server: utf8
-        collation-server: utf8_general_ci
-        init-connect: SET NAMES utf8
+        mysqld:
+          bind-address: '0.0.0.0'
+          character-set-server: 'utf8'
+          collation-server: 'utf8_general_ci'
+          init-connect: 'SET NAMES utf8'
