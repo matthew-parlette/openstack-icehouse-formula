@@ -62,7 +62,7 @@ def options_present(name, sections=None):
                                                        key)
             log.debug("Value retrieved as %s" % str(current_value))
             if current_value == sections[section][key]:
-                log.debug("Current value of %s:%s is in the correct state" % (str(section),str(current_value))
+                log.debug("Current value of %s:%s is in the correct state" % (str(section),str(current_value)))
                 continue
             log.debug("Setting %s to %s" % (str(key),str(sections[section][key])))
             ret['changes'] = __salt__['ini.set_option'](name,
