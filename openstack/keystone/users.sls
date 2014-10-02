@@ -1,14 +1,14 @@
-{% for tenant in salt['pillar.get']('openstack:keystone:tenants',{}) %}
-{% for user,settings in tenant[users].iteritems() %}
+{% for tenant,users in salt['pillar.get']('openstack:keystone:tenants',{}).iteritems() %}
+{% for user,details in users['users'].iteritems() %}
 
 {{ user }}-user:
   keystone.user_present:
     - name: {{ user }}
-    - password: {{ settings['password'] }}
-    - email: {{ settings['email'] }}
+    - password: {{ details['password'] }}
+    - email: {{ details['email'] }}
     - tenant: {{ tenant }}
     - roles:
-      - {{ tenant }}: {{ settings['roles'] }}
+      - {{ tenant }}: {{ details['roles'] }}
 
 {% endfor %}
 {% endfor %}
