@@ -1,14 +1,14 @@
-================
-template-formula
-================
+==========================
+openstack-icehouse-formula
+==========================
 
-A saltstack formula that is empty. It has dummy content to help with a quick
-start on a new formula.
+A saltstack formula for openstack icehouse on ubuntu.
 
 .. note::
 
-    See the full `Salt Formulas installation and usage instructions
-    <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_.
+    There are no requirements in these states.
+    It is expected that they are used with orchestration to execute the states
+    in the correct order.
 
 Available states
 ================
@@ -16,7 +16,35 @@ Available states
 .. contents::
     :local:
 
-``template``
+``rabbitmq``
 ------------
 
-Installs the template package, and starts the associated template service.
+Installs and runs the rabbitmq-server service.
+
+``mysql``
+------------
+Install mysql package and setup my.cnf for openstack usage.
+
+``mysql.client``
+------------
+Install the mysql python client
+
+``mysql.schema``
+------------
+Add database accounts for openstack services according to pillar data.
+
+``keystone``
+------------
+Install keystone package and run db_sync.
+
+``keystone.tenants``
+------------
+Add tenants to keystone based on pillar data.
+
+``keystone.services``
+------------
+Add services and roles to keystone based on pillar data.
+
+``keystone.users``
+------------
+Add users to keystone based on pillar data.
